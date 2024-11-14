@@ -1,6 +1,6 @@
-import React from "react";
 
-export default function Search(search, setSearch, handleSearch) {
+
+export default function Search({search, setSearch, handleSearch}) {
   return (
     <div className="search-engine">
       <input
