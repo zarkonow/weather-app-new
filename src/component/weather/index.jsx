@@ -3,9 +3,13 @@
 
 
 import React from 'react'
+import Search from '../search'
 
 export default function Weather() {
   return (
-    <div>Weather</div>
+    
+    <div>
+        <Search/>
+        Weather</div>
   )
 }
