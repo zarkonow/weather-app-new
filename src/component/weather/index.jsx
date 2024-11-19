@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 export default function Weather() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const [weather, setWeather] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
 
   async function fetchWeatherData(param) {
     setLoading(true);
@@ -18,7 +18,7 @@ export default function Weather() {
       console.log(data, "data");
 
       if (data) {
-        setWeather(data);
+        setWeatherData(data);
         setLoading(false);
       }
     } catch (e) {
@@ -31,12 +31,20 @@ export default function Weather() {
     fetchWeatherData(search);
   }
 
-useEffect(() => {
- fetchWeatherData('Beograd');
-}, [])
+
+  function getCurrentDate() {
+    return new Date().toLocaleDateString('UTC', {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    })
+  }
 
 
-
+  useEffect(() => {
+    fetchWeatherData("Beograd");
+  }, []);
 
   return (
     <div>
@@ -45,7 +53,18 @@ useEffect(() => {
         setSearch={setSearch}
         handleSearch={handleSearch}
       />
-      Weather
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <div className="city-name">
+          <h2>
+            {weatherData?.name}, <span>{weatherData?.sys?.country}</span>
+          </h2>
+          <div className="date">
+            <span>{getCurrentDate()}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
