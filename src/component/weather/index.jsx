@@ -31,16 +31,14 @@ export default function Weather() {
     fetchWeatherData(search);
   }
 
-
   function getCurrentDate() {
-    return new Date().toLocaleDateString('UTC', {
+    return new Date().toLocaleDateString("en-us", {
       weekday: "long",
       year: "numeric",
       month: "long",
-      day: "numeric"
-    })
+      day: "numeric",
+    });
   }
-
 
   useEffect(() => {
     fetchWeatherData("Beograd");
@@ -63,6 +61,13 @@ export default function Weather() {
           <div className="date">
             <span>{getCurrentDate()}</span>
           </div>
+          <div>{weatherData?.manin?.temp} </div>
+          <p className="description">
+            {weatherData && weatherData.weather && weatherData.weather[0]
+              ? weatherData.weather[0].description
+              : ""}
+          </p>
+          <div className="weather-info"> </div>
         </div>
       )}
     </div>
